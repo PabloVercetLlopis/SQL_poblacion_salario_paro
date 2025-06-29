@@ -1,0 +1,9 @@
+%%sql
+CREATE TABLE desempleo (
+  sexo TEXT,
+  comunidad TEXT,
+  edad TEXT,
+  periodo TEXT,
+  tasa_desempleo FLOAT,
+  PRIMARY KEY (sexo, comunidad, edad, periodo)
+);
