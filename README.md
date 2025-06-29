@@ -1,0 +1,1 @@
+# SQL_poblacion_salario_paro
