@@ -1,0 +1,46 @@
+# ¿Cuántos registros hay en cada tabla?
+%sql SELECT COUNT(*) FROM salarios;
+%sql SELECT COUNT(*) FROM poblacion;
+%sql SELECT COUNT(*) FROM paro;
+
+#¿¿Qué provincias tienen datos de población disponibles?
+%sql SELECT count(DISTINCT PROVINCIAS) FROM POBLACION;
+%sql SELECT DISTINCT PROVINCIAS FROM POBLACION;
+
+#¿Cuáles son las diferentes comunidades autónomas presentes en la tabla de salarios?
+%sql SELECT DISTINCT ccaa FROM salarios;
+
+# ¿Cuáles son los distintos años (periodos) que aparecen en la tabla de paro?
+%sql SELECT DISTINCT PERIODO FROM PARO
+
+#¿Cuál es el salario medio total para "Ambos sexos" en toda España?
+%sql SELECT AVG(SALARIO_AMBOS) FROM SALARIOS;
+
+#¿Cuál es el salario medio de las mujeres en Andalucía en el año 2021?
+%sql SELECT salario_mujeres FROM salarios WHERE CCAA = 'Andalucía';
+
+#¿Cuál es el salario medio y la tasa de paro total por comunidad autónoma, considerando ambos sexos?
+%%sql
+SELECT s.CCAA, s.salario_ambos, p.Total
+FROM salarios s
+JOIN paro p
+ON LOWER(TRIM(s.CCAA)) = LOWER(TRIM(p.Comunidades))
+WHERE p.Sexo = 'Ambos'
+
+#¿Qué comunidad tiene el mayor número de personas en paro en el año más reciente? #excluyo de 16 a 19 años
+%sql SELECT DISTINCT * FROM paro WHERE EDAD != 'De 16 a 19 años' ORDER BY CAST(REPLACE(TOTAL, '.', '') AS INTEGER) DESC LIMIT 10;
+
+#¿Cuál es el salario medio de los hombres por comunidad autónoma?
+%sql SELECT DISTINCT CCAA, salario_hombres FROM salarios; 
+
+# ¿Cuál es la media de salario por sexo y comunidad?
+%sql SELECT CCAA, salario_hombres, salario_mujeres from salarios;
+
+#¿Qué comunidad tiene el salario más alto?
+%sql SELECT CCAA, salario_ambos from salarios order by salario_ambos DESC LIMIT 5
+
+#¿Cuál es la diferencia de salario entre hombres y mujeres en cada comunidad?
+%sql SELECT salario_hombres, salario_mujeres, salario_ambos, round(salario_hombres - salario_mujeres, 7) as diferencia_salarios from salarios;
+
+#¿Cuál es la brecha salarial media entre hombres y mujeres en cada comunidad autónoma, y cómo varía esta brecha de mayor a menor?
+%sql SELECT CCAA, AVG(CAST(REPLACE(salario_hombres, '.', '') AS FLOAT)) AS salario_hombres, AVG(CAST(REPLACE(salario_mujeres, '.', '') AS FLOAT)) AS salario_mujeres, AVG(CAST(REPLACE(salario_hombres, '.', '') AS FLOAT)) - AVG(CAST(REPLACE(salario_mujeres, '.', '') AS FLOAT)) AS brecha_salarial FROM salarios GROUP BY CCAA ORDER BY brecha_salarial DESC;
