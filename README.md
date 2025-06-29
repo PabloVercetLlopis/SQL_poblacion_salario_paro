@@ -11,15 +11,37 @@ Este proyecto explora las diferencias salariales por comunidades autónomas y se
 - Consultar y transformar datos usando SQL embebido (`ipython-sql`).
 
 ---
+## Limitaciones y Consideraciones
+Las consultas realizadas se basan en los datos disponibles de las tablas de salarios, paro y población.
+
+Debido a que los datos no están completamente alineados entre sí — por ejemplo, diferencias en los nombres de comunidades, provincias, períodos o niveles de agregación — no ha sido posible realizar consultas complejas que combinen todas las tablas de forma óptima.
+
+Esto limita el análisis a consultas sencillas o a aquellas uniones en las que hay coincidencias directas y limpias entre las tablas.
+
+Para futuros análisis, se recomienda realizar una limpieza y normalización más exhaustiva de los datos para permitir relaciones más robustas entre tablas y facilitar consultas más complejas y completas.
+
+---
 
 ## 📁 Estructura del repositorio
 
 SQL_poblacion_salario_paro/
-├── notebooks/
-│ └── analisis_salarios.ipynb # Análisis completo en Jupyter Notebook
+
+├── Notebooks/
+
+│ └── Empleo_España_2025_Análisis_WebScrapin_&_DataScience.ipynb
+
 │
+
 ├── sql/
-│ ├── crear_tabla_salarios.sql # Script para crear la tabla en SQL
-│ └── consultas_exploratorias.sql # Consultas sobre los salarios
+
+│ ├── crear_tabla_salarios.sql 
+
+│ ├── crear_tabla_poblacion.sql 
+
+│ ├── crear_tabla_paro.sql 
+
+│ └── Consultas
+
 │
-├── README.md # Documentación del proyecto
+
+├── README.md 
