@@ -1,0 +1,10 @@
+%%sql
+CREATE TABLE salarios (
+  region TEXT PRIMARY KEY,
+  salario_ambos_sexos FLOAT,
+  variacion_anual_ambos FLOAT,
+  salario_mujeres FLOAT,
+  variacion_anual_mujeres FLOAT,
+  salario_hombres FLOAT,
+  variacion_anual_hombres FLOAT
+);
